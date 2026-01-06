@@ -1,0 +1,46 @@
+# RAG Chatbot - Git Ignore
+# Project: RAG Chatbot
+# Developer: RSK World
+# Website: https://rskworld.in
+# Email: help@rskworld.in
+# Phone: +91 93305 39277
+# Year: 2026
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Vector Database
+vector_db/
+*.db
+*.sqlite
+
+# Conversations and Analytics
+conversations/
+analytics/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+

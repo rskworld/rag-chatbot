@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--
+RAG Chatbot - Main HTML Template
+Project: RAG Chatbot
+Developer: RSK World
+Website: https://rskworld.in
+Email: help@rskworld.in
+Phone: +91 93305 39277
+Year: 2026
+Description: Main chat interface for the RAG chatbot with advanced features
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chatbot - RSK World</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <i class="fas fa-database header-icon"></i>
+                <h1>RAG Chatbot</h1>
+                <p class="subtitle">Retrieval-Augmented Generation with Knowledge Base</p>
+                <div class="header-actions">
+                    <button class="btn-icon" id="settingsBtn" title="Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="btn-icon" id="analyticsBtn" title="Analytics">
+                        <i class="fas fa-chart-bar"></i>
+                    </button>
+                    <button class="btn-icon" id="uploadBtn" title="Upload Document">
+                        <i class="fas fa-upload"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-controls">
+                        <button class="btn-small" id="clearChatBtn">
+                            <i class="fas fa-trash"></i> Clear Chat
+                        </button>
+                        <button class="btn-small" id="exportChatBtn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <div class="settings-toggle">
+                            <label class="switch">
+                                <input type="checkbox" id="hybridSearchToggle">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Hybrid Search</span>
+                        </div>
+                        <div class="settings-toggle">
+                            <label class="switch">
+                                <input type="checkbox" id="streamingToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Streaming</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <div class="message-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Hello! I'm your RAG-powered chatbot with advanced features. I can answer questions based on my knowledge base. How can I help you today?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            placeholder="Ask me anything..." 
+                            autocomplete="off"
+                        >
+                        <button id="sendButton" class="send-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <h3><i class="fas fa-info-circle"></i> About</h3>
+                <p>This chatbot uses RAG (Retrieval-Augmented Generation) architecture with advanced features.</p>
+                
+                <h3><i class="fas fa-feather-alt"></i> Features</h3>
+                <ul>
+                    <li>Knowledge base integration</li>
+                    <li>Vector + Keyword hybrid search</li>
+                    <li>Conversation history</li>
+                    <li>Streaming responses</li>
+                    <li>Document upload</li>
+                    <li>Analytics & statistics</li>
+                    <li>Feedback system</li>
+                    <li>Export conversations</li>
+                </ul>
+
+                <div class="footer-info">
+                    <p><i class="fas fa-code"></i> Developed by <a href="https://rskworld.in" target="_blank">RSK World</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:help@rskworld.in">help@rskworld.in</a></p>
+                    <p><i class="fas fa-phone"></i> +91 93305 39277</p>
+                    <p class="copyright">&copy; 2026 RSK World</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-upload"></i> Upload Document</h2>
+                <button class="modal-close" id="closeUploadModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadForm">
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag and drop a file here or click to browse</p>
+                        <p class="file-info">Supported: PDF, TXT, MD (Max 16MB)</p>
+                        <input type="file" id="fileInput" accept=".pdf,.txt,.md" hidden>
+                    </div>
+                    <div id="filePreview" class="file-preview"></div>
+                    <button type="submit" class="btn-primary" id="uploadSubmitBtn" disabled>
+                        <i class="fas fa-upload"></i> Upload and Process
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="analyticsModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-bar"></i> Analytics & Statistics</h2>
+                <button class="modal-close" id="closeAnalyticsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="analyticsContent">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalQueries">0</div>
+                            <div class="stat-label">Total Queries</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalSessions">0</div>
+                            <div class="stat-label">Total Sessions</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="avgResponseTime">0s</div>
+                            <div class="stat-label">Avg Response Time</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="feedbackScore">0%</div>
+                            <div class="stat-label">Feedback Score</div>
+                        </div>
+                    </div>
+                    <div class="analytics-section">
+                        <h3>Top Queries</h3>
+                        <div id="topQueries"></div>
+                    </div>
+                    <div class="analytics-section">
+                        <h3>Top Sources</h3>
+                        <div id="topSources"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Thinking...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

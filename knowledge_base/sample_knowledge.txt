@@ -1,0 +1,17 @@
+RAG Chatbot Knowledge Base - Sample Document
+Project: RAG Chatbot
+Developer: RSK World
+Website: https://rskworld.in
+Email: help@rskworld.in
+Phone: +91 93305 39277
+Year: 2026
+
+This is a sample knowledge base document for the RAG chatbot. You can add your own documents here.
+
+To add more knowledge:
+1. Place PDF, TXT, or MD files in this directory
+2. Run: python prepare_knowledge_base.py
+3. The documents will be processed and added to the vector database
+
+The chatbot will use these documents to provide accurate, context-aware responses.
+
